@@ -52,6 +52,7 @@ export function Cart() {
     }, 500);
   }, [limitOnTopPoint, form]);
 
+  // debounced value to prevent useEffect re-renders 
   const onValueChange = useDebouncedCallback(
     (value: number | null, field: "onTop_point" | "every" | "discount") => {
       if (field === "onTop_point" && onTop?.on_top_type === OnTopType.POINT) {
@@ -93,7 +94,6 @@ export function Cart() {
                         <Typography className="font-bold">
                           {item.name}
                         </Typography>
-
                         {loading ? (
                           <Skeleton.Input block />
                         ) : (

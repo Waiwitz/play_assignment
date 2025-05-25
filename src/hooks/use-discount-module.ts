@@ -37,12 +37,14 @@ export function useDiscountModule() {
     setCart(cart.filter((cartItem) => cartItem.id !== item.id));
   };
 
+  // Total price without discounts
   const totalPrice = useMemo(
     () =>
       cart.map((item) => item.sumPrice).reduce((acc, price) => acc + price, 0),
     [cart]
   );
 
+  // Total price with discounts applied
   const totalDiscountPrice = useMemo(() => {
     if (cart.length === 0) return 0;
     const totalDiscount = cart.reduce(
@@ -52,6 +54,7 @@ export function useDiscountModule() {
 
     return totalDiscount > 0 ? Math.trunc(totalDiscount) : totalPrice;
   }, [cart, totalPrice]);
+
 
   const allocateDiscount = (
     discount: number,
@@ -67,9 +70,10 @@ export function useDiscountModule() {
     return itemsPrice - discountByType * radioPrice;
   };
 
+  // Limit on top point is 20% of total price but without discounts
   const limitOnTopPoint = useMemo(() => (totalPrice * 20) / 100, [totalPrice]);
 
-  // onChange update cart -> trigger to totalPrice -> totalPrice triger to useEffect, why this is so weird 😩😩
+  // onChange update cart -> trigger to totalPrice -> totalPrice triger to useEffect
   const onChangeQuantity = (cartItem: CartItem, amount: number) => {
     const updatedItem = cart.map((item) => {
       if (item.id === cartItem.id) {
@@ -81,6 +85,8 @@ export function useDiscountModule() {
     setCart(updatedItem);
   };
 
+  // triger set new discount price everytime when add,change amount, remove item from cart
+  // and when apply discounts
   useEffect(() => {
     if (onTop?.on_top_type === OnTopType.POINT && onTop.discount === 0) return;
     if (seasonal?.every === 0) return;
