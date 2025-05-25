@@ -40,11 +40,15 @@ jobs:
           # First try a regular install without any special flags
           npm ci || npm install
           
-          # Explicitly install platform-specific dependencies if needed
-          npm install @rollup/rollup-linux-x64-gnu @esbuild/linux-x64 --no-save --platform=linux --arch=x64
+          # Explicitly install platform-specific dependencies for Linux
+          npm install @rollup/rollup-linux-x64-gnu @esbuild/linux-x64 lightningcss-linux-x64-gnu --no-save --platform=linux --arch=x64
           
-          # Verify esbuild installation
+          # Verify installations
           npx --no-install esbuild --version
+          
+          # Ensure the lightningcss binary is found
+          ls -la node_modules/lightningcss/
+          ls -la node_modules/lightningcss/lightningcss.*.node || echo "No lightningcss binary found"
       - name: Build
         run: npm run build
       - name: Setup Pages

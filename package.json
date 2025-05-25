@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "node -e \"if (process.platform === 'linux') { try { require('@esbuild/linux-x64'); require('lightningcss-linux-x64-gnu'); } catch (e) { console.warn('Missing platform-specific dependencies. Installing...'); require('child_process').execSync('npm install @rollup/rollup-linux-x64-gnu @esbuild/linux-x64 lightningcss-linux-x64-gnu --no-save --platform=linux --arch=x64', {stdio: 'inherit'}); } }\"",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview"
