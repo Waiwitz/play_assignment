@@ -37,11 +37,14 @@ jobs:
           cache: 'npm'
       - name: Install dependencies
         run: |
-          # Handle optional dependencies issue
-          npm config set ignore-scripts true
-          npm ci --no-optional || npm install --no-optional
-          # Make sure rollup is available on Linux
-          npm install @rollup/rollup-linux-x64-gnu -D --no-save
+          # First try a regular install without any special flags
+          npm ci || npm install
+          
+          # Explicitly install platform-specific dependencies if needed
+          npm install @rollup/rollup-linux-x64-gnu @esbuild/linux-x64 --no-save --platform=linux --arch=x64
+          
+          # Verify esbuild installation
+          npx --no-install esbuild --version
       - name: Build
         run: npm run build
       - name: Setup Pages
