@@ -197,6 +197,7 @@ export function Cart() {
                 name={"seasonal"}
                 labelCol={{ span: 8 }}
                 style={{ marginBottom: 10 }}
+                valuePropName="checked"
               >
                 <Checkbox
                   onChange={(e) => {
@@ -218,6 +219,7 @@ export function Cart() {
                 <Col span={12}>
                   <Form.Item name={"every"}>
                     <InputNumber
+                      controls={false}
                       min={0}
                       onChange={(value) =>
                         onValueChange(value as number | null, "every")
@@ -231,6 +233,7 @@ export function Cart() {
                 <Col span={12}>
                   <Form.Item name={"discount"}>
                     <InputNumber
+                      controls={false}
                       min={0}
                       onChange={(value) =>
                         onValueChange(value as number | null, "discount")
