@@ -116,7 +116,7 @@ export function Cart() {
                     <div className="flex gap-2 items-center">
                       <Space>
                         <Button
-                          disabled={item.amount <= 1 || loading}
+                          disabled={item.amount <= 1}
                           icon={<BiMinus />}
                           onClick={() =>
                             onChangeQuantity(item, item.amount - 1)
@@ -124,7 +124,6 @@ export function Cart() {
                         />
                         {item.amount}
                         <Button
-                          disabled={loading}
                           icon={<BiPlus />}
                           onClick={() =>
                             onChangeQuantity(item, item.amount + 1)
