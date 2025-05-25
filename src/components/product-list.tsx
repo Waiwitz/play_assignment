@@ -26,7 +26,7 @@ export function ProductList() {
                 }}
               >
                 <Image
-                  className="rounded-lg shadow-lg cover m-auto"
+                  className="rounded-lg shadow-lg object-cover m-auto"
                   preview={false}
                   src={product.imageUrl}
                   alt={product.name}

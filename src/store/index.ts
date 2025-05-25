@@ -2,11 +2,12 @@ import { create } from "zustand";
 import type { Product, ProductCategory } from "../placeholder/products";
 import type { DefaultOptionType } from "antd/es/select";
 
-export interface CartItem extends Omit<Product, "id"> {
+export interface CartItem extends Product {
   productId: string;
-  id: string;
-  quantity: number;
-  productPrice: number;
+  amount: number;
+  // productPrice: number;
+  sumPrice: number;
+  discountPrice?: number;
 }
 
 export enum OnTopType {
@@ -28,21 +29,27 @@ export interface OnTop extends DefaultOptionType {
   on_top_type: OnTopType;
   discount_type: DiscountType;
   discount: number;
-  category: ProductCategory;
+  category?: ProductCategory;
+}
+
+export interface Seasonal {
+  every: number;
+  discount: number;
+  discount_type: DiscountType;
 }
 
 interface StoreState {
   cart: CartItem[];
   coupon: Coupon | null;
   onTop: OnTop | null;
-  isIncludedSeasonal: boolean;
+  seasonal: Seasonal | null;
 }
 
 interface StoreActions {
   setCart: (cart: CartItem[]) => void;
   setCoupon: (coupon: Coupon | null) => void;
   setOnTop: (onTop: OnTop | null) => void;
-  setIsIncludedSeasonal: (isIncludedSeasonal: boolean) => void;
+  setSeasonal: (seasonal: Seasonal | null) => void;
 }
 
 export const useStoreCart = create<StoreState & StoreActions>((set) => ({
@@ -52,6 +59,6 @@ export const useStoreCart = create<StoreState & StoreActions>((set) => ({
   setCoupon: (coupon) => set({ coupon }),
   onTop: null,
   setOnTop: (onTop) => set({ onTop }),
-  isIncludedSeasonal: false,
-  setIsIncludedSeasonal: (isIncludedSeasonal) => set({ isIncludedSeasonal }),
+  seasonal: null,
+  setSeasonal: (seasonal) => set({ seasonal }),
 }));

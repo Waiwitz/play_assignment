@@ -6,9 +6,9 @@ const contentCardStyle = "m-10 w-full h-full bg-slate-200 shadow-lg rounded-lg";
 
 function App() {
   return (
-    <main className="bg-gray-200 p-15 h-screen">
+    <main className="bg-gray-200 lg:p-15 sm:p-10 h-100vh">
       {/* <Card className="shadow-lg rounded-lg">Head</Card> */}
-      <Row gutter={24} className="my-5">
+      <Row gutter={[24, 24]} className="my-5">
         <Col lg={16} md={16} sm={24} xs={24}>
           <Card className={contentCardStyle}>
             <ProductList />

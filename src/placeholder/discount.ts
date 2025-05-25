@@ -64,7 +64,7 @@ export const onTopMock: OnTop[] = [
     discount: 15,
   },
   {
-    label: "Discount 15% electronics category",
+    label: "Discount 10% electronics category",
     value: 3,
     on_top_type: OnTopType.ITEM_CATEGORY,
     discount_type: DiscountType.PERCENTAGE,
@@ -74,9 +74,9 @@ export const onTopMock: OnTop[] = [
   {
     label: "Discount by point",
     value: 4,
-    on_top_type: OnTopType.ITEM_CATEGORY,
+    on_top_type: OnTopType.POINT,
     discount_type: DiscountType.FIXED,
-    category: "Electronics",
-    discount: 10,
+    // category: "Electronics",
+    discount: 0,
   },
 ];
