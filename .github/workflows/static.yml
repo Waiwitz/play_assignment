@@ -36,7 +36,12 @@ jobs:
           node-version: lts/*
           cache: 'npm'
       - name: Install dependencies
-        run: npm ci
+        run: |
+          # Handle optional dependencies issue
+          npm config set ignore-scripts true
+          npm ci --no-optional || npm install --no-optional
+          # Make sure rollup is available on Linux
+          npm install @rollup/rollup-linux-x64-gnu -D --no-save
       - name: Build
         run: npm run build
       - name: Setup Pages
