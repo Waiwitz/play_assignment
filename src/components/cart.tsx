@@ -52,7 +52,7 @@ export function Cart() {
     }, 500);
   }, [limitOnTopPoint, form]);
 
-  // debounced value to prevent useEffect re-renders 
+  // debounced value to prevent useEffect re-renders
   const onValueChange = useDebouncedCallback(
     (value: number | null, field: "onTop_point" | "every" | "discount") => {
       if (field === "onTop_point" && onTop?.on_top_type === OnTopType.POINT) {
@@ -86,6 +86,7 @@ export function Cart() {
               itemLayout="horizontal"
               dataSource={cart}
               renderItem={(item) => {
+                const isDiscounted = item.discountPrice !== item.sumPrice;
                 return (
                   <div className="w-full flex py-1 items-center justify-between">
                     <Space className="gap-4">
@@ -94,21 +95,13 @@ export function Cart() {
                         <Typography className="font-bold">
                           {item.name}
                         </Typography>
-                        {loading ? (
-                          <Skeleton.Input block />
-                        ) : (
-                          <>
-                            <Typography.Text
-                              delete={item.discountPrice !== item.sumPrice}
-                            >
-                              {item.sumPrice} THB
-                            </Typography.Text>
-                            {item.discountPrice !== item.sumPrice && (
-                              <Typography className="font-bold">
-                                {item.discountPrice} THB
-                              </Typography>
-                            )}
-                          </>
+                        <Typography.Text delete={isDiscounted}>
+                          {item.sumPrice} THB
+                        </Typography.Text>
+                        {isDiscounted && (
+                          <Typography className="font-bold">
+                            {item.discountPrice} THB
+                          </Typography>
                         )}
                       </div>
                     </Space>
@@ -179,7 +172,11 @@ export function Cart() {
                   />
                 </Form.Item>
               </Col>
-              <Col lg={8} xs={24} hidden={onTop?.on_top_type !== OnTopType.POINT}>
+              <Col
+                lg={8}
+                xs={24}
+                hidden={onTop?.on_top_type !== OnTopType.POINT}
+              >
                 <Form.Item name={"onTop_point"}>
                   <InputNumber
                     style={{ width: "100%" }}
