@@ -123,7 +123,7 @@ export function useDiscountModule() {
           ...item,
           discountPrice: Math.trunc(discountPrice),
         };
-      }, 4000);
+      });
 
       setLoading(false);
       setCart(updatedCart);
