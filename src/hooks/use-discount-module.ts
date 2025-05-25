@@ -55,7 +55,6 @@ export function useDiscountModule() {
     return totalDiscount > 0 ? Math.trunc(totalDiscount) : totalPrice;
   }, [cart, totalPrice]);
 
-
   const allocateDiscount = (
     discount: number,
     discountType: DiscountType,
@@ -88,9 +87,6 @@ export function useDiscountModule() {
   // triger set new discount price everytime when add,change amount, remove item from cart
   // and when apply discounts
   useEffect(() => {
-    if (onTop?.on_top_type === OnTopType.POINT && onTop.discount === 0) return;
-    if (seasonal?.every === 0) return;
-
     setLoading(true);
     const timeout = setTimeout(() => {
       const updatedCart = cart.map((item) => {
@@ -136,7 +132,6 @@ export function useDiscountModule() {
     return () => clearTimeout(timeout);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [coupon, onTop, seasonal, totalPrice]);
-
 
   return {
     coupon,
