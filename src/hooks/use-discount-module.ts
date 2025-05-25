@@ -15,17 +15,17 @@ export function useDiscountModule() {
   } = useStoreCart((state) => state);
   const [loading, setLoading] = useState(false);
 
-  const onAddToCart = (projectItem: Product) => {
-    const existItem = cart.find((item) => item.productId === projectItem.id);
+  const onAddToCart = (productItem: Product) => {
+    const existItem = cart.find((item) => item.productId === productItem.id);
 
     if (existItem) {
       onChangeQuantity(existItem, existItem.amount + 1);
     } else {
       const newItem: CartItem = {
-        ...projectItem,
-        id: `cart-${projectItem.id}-${cart.length}`,
-        productId: projectItem.id,
-        sumPrice: projectItem.price,
+        ...productItem,
+        id: `cart-${productItem.id}-${cart.length}`,
+        productId: productItem.id,
+        sumPrice: productItem.price,
         amount: 1,
       };
 
